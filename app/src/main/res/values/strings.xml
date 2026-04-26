@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">PennyTracker</string>
+    <string name="welcome">Welcome to Penny-Pilot</string>
+    <string name="companion">Your personal budget tracking companion</string>
+    <string name="loginAcc">Login</string>
+    <string name="regAcc">Register</string>
+    <string name="username">Username</string>
+    <string name="enterName">Enter your username</string>
+    <string name="password">Password</string>
+    <string name="enterPw">Enter your password</string>
+    <string name="chooseUsername">Choose a username</string>
+    <string name="choosePassword">Choose a password</string>
+    <string name="confirmation">Confirm your password</string>
+    <string name="confirmPass">Confirm Password</string>
+    <string name="existingAcc">Already have an account? Click here</string>
+    <string name="register">Register your account</string>
+    <string name="addExpense">Add Expense</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="number">0.00</string>
+    <string name="dateFormat">dd/mm/yyyy</string>
+    <string name="category">Add a category</string>
+    <string name="description">Description</string>
+    <string name="addDescription">What was this expense for?</string>
+    <string name="uploadReceipt">Upload receipt photo</string>
+    <string name="save">Save</string>
+    <string name="monthlyGoals">Monthly Goals</string>
+    <string name="minGoals">Enter a minimum monthly goal</string>
+    <string name="maxGoals">Enter a maximum monthly goal</string>
+    <string name="addCategory">Category</string>
+    <string name="welcomeUser">Welcome, User</string>
+    <string name="home">Home</string>
+    <string name="expenses">Expenses</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+</resources>
