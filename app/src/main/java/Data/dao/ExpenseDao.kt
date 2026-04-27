@@ -23,4 +23,11 @@ interface ExpenseDao {
     @Query("""SELECT category, SUM(amount) AS total  FROM expenses 
     GROUP BY category""")
     suspend fun getCategoryTotals(): List<CategoryTotal>
+
+    @Query("SELECT COUNT(*) FROM expenses")
+    suspend fun getCount(): Int
+
+
+    @Query("SELECT SUM(amount) FROM expenses")
+    suspend fun getTotalAmount(): Double?
 }

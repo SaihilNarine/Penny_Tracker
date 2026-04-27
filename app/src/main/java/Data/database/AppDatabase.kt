@@ -1,6 +1,7 @@
 package Data.database
 
 //imports
+import Data.dao.AchievementDao
 import Data.dao.ExpenseDao
 import Data.dao.MonthlyDao
 import Data.dao.UserDao
@@ -11,10 +12,11 @@ import androidx.room.RoomDatabase
 import com.example.pennytracker.data.Expense
 import com.example.pennytracker.data.User
 import com.example.pennytracker.data.MonthlyGoal
+import com.example.pennytracker.data.Achievement
 
 @Database(
-    entities = [User::class, Expense::class, MonthlyGoal::class],
-    version = 1,
+    entities = [User::class, Expense::class, MonthlyGoal::class, Achievement::class],
+    version = 2,
     exportSchema = false
 )
 
@@ -23,6 +25,7 @@ abstract class AppDatabase() : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun expenseDao(): ExpenseDao
     abstract fun monthlyGoalDao(): MonthlyDao
+    abstract fun achievementDao(): AchievementDao
 
     companion object {
 
