@@ -1,20 +1,29 @@
 package com.example.pennytracker
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.pennytracker.views.BarChartView
+import com.example.pennytracker.views.LineChartView
 
-class Graphs : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_graphs)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class Graphs : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        val view = inflater.inflate(R.layout.activity_graphs, container, false)
+
+        val barChart = view.findViewById<BarChartView>(R.id.barChart)
+        val lineChart = view.findViewById<LineChartView>(R.id.lineChart)
+
+        barChart.data = listOf(120f, 200f, 150f, 300f, 250f)
+        lineChart.data = listOf(50f, 100f, 80f, 200f, 150f)
+
+        return view
     }
 }
