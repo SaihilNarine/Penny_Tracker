@@ -1,6 +1,7 @@
 package com.example.pennytracker
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,8 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.content.edit
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Budget : AppCompatActivity() {
+    //Global VAR
+    private lateinit var bottomNav: BottomNavigationView
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,33 @@ class Budget : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        bottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> {
+                    // Home
+                    true
+                }
+                R.id.nav_expenses -> {
+                    val intent = Intent(this, Expenses::class.java)
+                    startActivity(intent)
+                    //Expense
+                    true
+                }
+                R.id.nav_graphs -> {
+                    val intent = Intent(this, Graphs::class.java)
+                    startActivity(intent)
+                    //Graphs
+                    true
+                }
+                R.id.nav_budget -> {
+                    val intent = Intent(this, Budget::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
     }
 }
