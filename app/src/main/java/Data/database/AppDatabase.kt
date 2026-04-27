@@ -35,7 +35,7 @@ abstract class AppDatabase() : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "penny_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 instance
             }

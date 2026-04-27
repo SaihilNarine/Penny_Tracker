@@ -23,7 +23,7 @@ class Budget : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_budget)
-
+        bottomNav = findViewById(R.id.bottomNav)
         val prefs = getSharedPreferences("finance", 0)
 
         val etBudget = findViewById<EditText>(R.id.etBudget)

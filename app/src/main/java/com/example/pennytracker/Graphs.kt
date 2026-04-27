@@ -1,16 +1,20 @@
 package com.example.pennytracker
 
+import Data.database.AppDatabase
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.pennytracker.views.BarChartView
 import com.example.pennytracker.views.LineChartView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class Graphs : AppCompatActivity() {
 
     //Global VAR
     private lateinit var bottomNav: BottomNavigationView
+    private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,30 +23,34 @@ class Graphs : AppCompatActivity() {
         val barChart = findViewById<BarChartView>(R.id.barChart)
         val lineChart = findViewById<LineChartView>(R.id.lineChart)
 
-        barChart.data = listOf(120f, 200f, 150f, 300f, 250f)
-        lineChart.data = listOf(50f, 100f, 80f, 200f, 150f)
+        bottomNav = findViewById(R.id.bottomNav)
+
+        db = AppDatabase.getDatabase(this)
+
+        lifecycleScope.launch {
+
+            val categories = db.expenseDao().getCategoryTotals()
+            val barData = categories.map { it.total }
+
+            barChart.data = barData
+            barChart.invalidate()
+
+            val expenses = db.expenseDao().getAllExpenses()
+            val lineData = expenses.map { it.amount.toFloat() }
+            lineChart.data = lineData
+            lineChart.invalidate()
+        }
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_home -> {
-                    // Home
-                    true
-                }
+                R.id.nav_home -> true
                 R.id.nav_expenses -> {
-                    val intent = Intent(this, Expenses::class.java)
-                    startActivity(intent)
-                    //Expense
+                    startActivity(Intent(this, Expenses::class.java))
                     true
                 }
-                R.id.nav_graphs -> {
-                    val intent = Intent(this, Graphs::class.java)
-                    startActivity(intent)
-                    //Graphs
-                    true
-                }
+                R.id.nav_graphs -> true
                 R.id.nav_budget -> {
-                    val intent = Intent(this, Budget::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, Budget::class.java))
                     true
                 }
                 else -> false

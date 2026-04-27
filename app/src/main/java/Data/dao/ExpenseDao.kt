@@ -17,4 +17,10 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE date BETWEEN :startDate AND :endDate")
     suspend fun getExpensesBetweenDate(startDate: String, endDate: String): List<Expense>
 
+    @Query("SELECT SUM(amount) FROM expenses")
+    suspend fun getTotalSpent(): Float?
+
+    @Query("""SELECT category, SUM(amount) AS total  FROM expenses 
+    GROUP BY category""")
+    suspend fun getCategoryTotals(): List<CategoryTotal>
 }
