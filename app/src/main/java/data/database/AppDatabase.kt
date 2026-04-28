@@ -1,7 +1,7 @@
 package data.database
 
 //imports
-//import Data.dao.AchievementDao
+import data.dao.AchievementDao
 import data.dao.ExpenseDao
 import data.dao.MonthlyDao
 import data.dao.UserDao
@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
 import com.example.pennytracker.data.Expense
 import com.example.pennytracker.data.User
 import com.example.pennytracker.data.MonthlyGoal
-//import com.example.pennytracker.data.Achievement
+import com.example.pennytracker.data.Achievement
 
 @Database(
     entities = [User::class, Expense::class, MonthlyGoal::class], //Achievement::class
