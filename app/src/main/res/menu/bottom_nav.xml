@@ -16,8 +16,13 @@
         android:id="@+id/nav_budget"
         android:icon="@drawable/ic_budget"
         android:title="Budget" />
+
     <item
         android:id="@+id/nav_achievements"
-        android:title="Achievements"
-         />
+        android:icon="@drawable/ic_achievements"
+        android:title="Badges" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
 </menu>

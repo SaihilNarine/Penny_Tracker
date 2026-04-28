@@ -77,6 +77,14 @@ class Budget : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.nav_achievements -> {
+                    startActivity(Intent(this, Achievements::class.java))
+                    true
+                }
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, Settings::class.java))
+                    true
+                }
                 else -> false
             }
         }

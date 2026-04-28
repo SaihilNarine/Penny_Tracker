@@ -17,4 +17,7 @@ interface MonthlyDao {
     @Query("SELECT * FROM monthly_goals LIMIT 1")
     suspend fun getGoal(): MonthlyGoal?
 
+    @Query("DELETE FROM monthly_goals")
+    suspend fun deleteAllGoals()
+
 }

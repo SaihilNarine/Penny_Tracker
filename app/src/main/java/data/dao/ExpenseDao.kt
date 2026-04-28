@@ -24,10 +24,6 @@ interface ExpenseDao {
     GROUP BY category""")
     suspend fun getCategoryTotals(): List<CategoryTotal>
 
-    @Query("SELECT COUNT(*) FROM expenses")
-    suspend fun getCount(): Int
-
-
-    @Query("SELECT SUM(amount) FROM expenses")
-    suspend fun getTotalAmount(): Double?
+    @Query("DELETE FROM expenses")
+    suspend fun deleteAllExpenses()
 }
