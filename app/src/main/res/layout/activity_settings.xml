@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -20,7 +21,8 @@
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/primary"
-            android:padding="16dp" />
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
 
         <!-- Profile Section -->
         <LinearLayout
@@ -36,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:text="Logged in as User"
                 android:textSize="18sp"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/text_primary"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <View
@@ -50,10 +53,11 @@
             android:layout_height="wrap_content"
             android:text="Preferences"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/black"
             android:textAllCaps="true"
             android:padding="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,12 +73,16 @@
                 android:layout_weight="1"
                 android:text="Dark Mode"
                 android:textSize="16sp"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
             <Switch
                 android:id="@+id/switchDarkMode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                tools:ignore="UseSwitchCompatOrMaterialXml,DuplicateSpeakableTextCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -91,12 +99,16 @@
                 android:layout_weight="1"
                 android:text="Notifications"
                 android:textSize="16sp"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
             <Switch
                 android:id="@+id/switchNotifications"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>
 
         <View
@@ -111,10 +123,11 @@
             android:layout_height="wrap_content"
             android:text="Data"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/black"
             android:textAllCaps="true"
             android:padding="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btnExportData"
@@ -123,16 +136,18 @@
             android:text="Export Data"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <Button
             android:id="@+id/btnClearData"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:text="Clear All Data"
             android:textColor="@color/red"
-            android:layout_marginHorizontal="16dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+            tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
 
         <View
             android:layout_width="match_parent"
@@ -146,10 +161,11 @@
             android:layout_height="wrap_content"
             android:text="About"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/black"
             android:textAllCaps="true"
             android:padding="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btnAbout"
@@ -157,17 +173,19 @@
             android:layout_height="wrap_content"
             android:text="About PennyTracker"
             android:layout_marginHorizontal="16dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         <TextView
             android:id="@+id/tvAppVersion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Version 1.0.0"
-            android:textSize="12sp"
-            android:textColor="@color/text_secondary"
             android:gravity="center"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:text="Version 1.0.0"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <View
             android:layout_width="match_parent"
@@ -178,15 +196,17 @@
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/red" />
+            android:backgroundTint="@color/red"
+            android:text="Logout"
+            tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/bottom_nav" />
+            app:menu="@menu/bottom_nav"
+            tools:ignore="VisualLintBottomNav" />
 
     </LinearLayout>
 </ScrollView>

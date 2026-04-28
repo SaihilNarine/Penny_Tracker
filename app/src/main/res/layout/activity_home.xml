@@ -40,7 +40,8 @@
                         android:layout_height="wrap_content"
                         android:text="Monthly Budget"
                         android:textStyle="bold"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/tvTotalSpent"

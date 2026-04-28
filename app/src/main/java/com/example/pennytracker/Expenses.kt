@@ -17,6 +17,11 @@ import com.example.pennytracker.data.Expense
 import com.example.pennytracker.data.MonthlyGoal
 import kotlinx.coroutines.launch
 
+//imports for the images
+import android.net.Uri
+import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts
+
 class Expenses : AppCompatActivity() {
 
     //global declarations
@@ -58,6 +63,7 @@ class Expenses : AppCompatActivity() {
         }
 
         btnPhoto.setOnClickListener {
+            pickImageLauncher.launch("image/*")
 
         }
 
@@ -190,6 +196,16 @@ class Expenses : AppCompatActivity() {
 
         datePickerDialog.show()
 
+    }
+
+    //upload photo button
+    private val pickImageLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ){uri: Uri? ->
+        if(uri != null){
+            selectedPhotoUri = uri.toString()
+            Toast.makeText(this, "Photo selected.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

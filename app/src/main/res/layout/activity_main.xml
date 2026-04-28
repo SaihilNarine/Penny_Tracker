@@ -99,7 +99,7 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:text="@string/enterName"
+        android:hint="@string/enterName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"

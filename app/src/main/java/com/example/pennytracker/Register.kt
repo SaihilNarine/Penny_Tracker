@@ -79,7 +79,7 @@ class Register : AppCompatActivity() {
         //check if the password are the same
         if(password != confirmPassword){
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
-
+            return
         }
 
         //database operation

@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loginUser(){
-        val username = edtUsername.toString().trim()
-        val password = edtPassword.toString().trim()
+        val username = edtUsername.text.toString().trim()
+        val password = edtPassword.text.toString().trim()
 
         //validation checks if empty
         if(username.isEmpty() || password.isEmpty()){
