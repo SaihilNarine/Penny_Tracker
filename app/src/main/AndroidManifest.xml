@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PennyTracker">
         <activity
+            android:name=".Achievement"
+            android:exported="false" />
+        <activity
             android:name=".Budget"
             android:exported="false" />
         <activity
@@ -29,9 +32,6 @@
         <activity
             android:name=".Home"
             android:exported="false" />
-        <activity
-            android:name=".Achievements"
-            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
