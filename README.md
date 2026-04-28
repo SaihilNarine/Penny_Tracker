@@ -1,0 +1,26 @@
+# PennyTracker App
+
+## Description
+
+PennyTracker is a budget tracking Android application that allows users to:
+
+* Add expenses
+* Set monthly goals
+* View spending insights
+* Analyse data using graphs (Under Development)
+
+## Features
+
+* User login system
+* Expense tracking
+* Category management
+* Budget limits (min & max goals)
+* Graph visualisation
+* Offline storage using Room Database
+
+## Technologies Used
+
+* Kotlin
+* Android Studio
+* Room Database
+* Material UI
