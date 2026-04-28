@@ -1,6 +1,6 @@
 package com.example.pennytracker
 
-import Data.database.AppDatabase
+import data.database.AppDatabase
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle

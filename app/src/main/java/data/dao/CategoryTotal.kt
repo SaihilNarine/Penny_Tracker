@@ -1,4 +1,4 @@
-package Data.dao
+package data.dao
 
 data class CategoryTotal(
     val category: String,

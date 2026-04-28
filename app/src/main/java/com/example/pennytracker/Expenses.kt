@@ -1,6 +1,6 @@
 package com.example.pennytracker
 
-import Data.database.AppDatabase
+import data.database.AppDatabase
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 
 //imports for the images
 import android.net.Uri
-import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 
 class Expenses : AppCompatActivity() {

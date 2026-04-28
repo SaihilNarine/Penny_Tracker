@@ -1,10 +1,10 @@
-package Data.database
+package data.database
 
 //imports
 //import Data.dao.AchievementDao
-import Data.dao.ExpenseDao
-import Data.dao.MonthlyDao
-import Data.dao.UserDao
+import data.dao.ExpenseDao
+import data.dao.MonthlyDao
+import data.dao.UserDao
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room

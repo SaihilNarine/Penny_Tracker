@@ -1,4 +1,4 @@
-package Data.dao
+package data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
