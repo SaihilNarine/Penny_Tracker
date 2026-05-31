@@ -1,6 +1,5 @@
 package com.example.pennytracker
 
-import data.database.AppDatabase
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,20 +9,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
+
 
 class MainActivity : AppCompatActivity() {
 
     //global declarations
+    private lateinit var auth: FirebaseAuth
+    private lateinit var btnLoginTab: Button
+    private lateinit var btnRegisterTab: Button
+    private lateinit var edtEmail: EditText
+    private lateinit var edtPassword: EditText
+    private lateinit var btnLoginAcc: Button
 
-    private lateinit var btnLoginTab : Button
-    private lateinit var btnRegisterTab : Button
-    private lateinit var edtUsername : EditText
-    private lateinit var edtPassword : EditText
-    private lateinit var btnLoginAcc : Button
-
-    private lateinit var db : AppDatabase
+    //private lateinit var db : AppDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,19 +30,22 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        //initialize firebase auth
+        auth = FirebaseAuth.getInstance()
+
         //room database
-        db = AppDatabase.getDatabase(this)
+        //db = AppDatabase.getDatabase(this)
 
         //Typecasting
         btnLoginTab = findViewById(R.id.btnLoginTab)
         btnRegisterTab = findViewById(R.id.btnRegisterTab)
-        edtUsername = findViewById(R.id.edtUsername)
+        edtEmail = findViewById(R.id.edtEmail)
         edtPassword = findViewById(R.id.edtPassword)
         btnLoginAcc = findViewById(R.id.btnLoginAcc)
 
         //methods
         btnLoginTab.setOnClickListener {
-            edtUsername.text.clear()
+            edtEmail.text.clear()
             edtPassword.text.clear()
         }
 
@@ -63,42 +65,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginUser(){
-        val username = edtUsername.text.toString().trim()
+    private fun loginUser() {
+        val email = edtEmail.text.toString().trim()
         val password = edtPassword.text.toString().trim()
 
         //validation checks if empty
-        if(username.isEmpty() || password.isEmpty()){
-            Toast.makeText(this, "Please enter username and password fields", Toast.LENGTH_SHORT).show()
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter email and password fields", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
-        lifecycleScope.launch{
-            //check if the user exists with their matching username and password
-            val foundUser = db.userDao().loginUser(username, password)
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                    openHomePage()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Login failed: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-            runOnUiThread {
-                if(foundUser != null){
-                    //check if the user is found -> login successful
-                    Toast.makeText(this@MainActivity, "Login successful", Toast.LENGTH_SHORT).show()
-
-                    //go to the home screen when successful
-                    openHomePage(foundUser.username)
-
-                }else{
-                    //if the user is not found then login failed
-                    Toast.makeText(this@MainActivity, "Invalid login details. Please try again", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-
     }
 
-    private fun openHomePage(username: String){
+    private fun openHomePage(){
         val intent = Intent(this, Home::class.java)
-
         startActivity(intent)
         finish()
     }
-
 }
+

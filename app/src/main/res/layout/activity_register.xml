@@ -35,10 +35,10 @@
         app:layout_constraintVertical_bias="0.389" />
 
     <TextView
-        android:id="@+id/tvUsername"
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/username"
+        android:text="@string/email"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,13 +48,13 @@
         app:layout_constraintVertical_bias="0.464" />
 
     <EditText
-        android:id="@+id/edtUsername"
+        android:id="@+id/edtEmail"
         android:layout_width="385dp"
         android:layout_height="48dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:hint="@string/chooseUsername"
+        android:hint="@string/enterEmail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

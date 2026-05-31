@@ -1,6 +1,5 @@
 package com.example.pennytracker
 
-import data.database.AppDatabase
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,22 +9,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.example.pennytracker.data.User
-import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
 
 class Register : AppCompatActivity() {
 
     //global declarations
     //these variable are declared globally so we can use them in multiple functions
 
-    private lateinit var edtUsername : EditText
+    private lateinit var edtEmail : EditText
     private lateinit var edtPassword : EditText
     private lateinit var edtConfirmPassword : EditText
     private lateinit var btnRegAcc : Button
     private lateinit var btnExistingAcc : Button
+    private lateinit var auth : FirebaseAuth
 
-    private lateinit var db : AppDatabase
+    //private late in it var db : AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +31,19 @@ class Register : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         //Typecasting
-        edtUsername = findViewById(R.id.edtUsername)
+        edtEmail = findViewById(R.id.edtEmail)
         edtPassword = findViewById(R.id.edtPassword)
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword)
         btnRegAcc = findViewById(R.id.btnRegAcc)
         btnExistingAcc = findViewById(R.id.btnExistingAcc)
 
-        //initializing the database
-        db = AppDatabase.getDatabase(this)
+        //initialize firebase
+        auth = FirebaseAuth.getInstance()
 
-        addDefaultUser() //function to add default user
+        //initializing the database
+        //db = AppDatabase.getDatabase(this)
+
+
 
         //when the user clicks the register button, it will activate the code within
         btnRegAcc.setOnClickListener {
@@ -64,14 +65,14 @@ class Register : AppCompatActivity() {
 
     //function to handle registration logic
     private fun registerUser(){
-        val username = edtUsername.text.toString().trim()
+        val email = edtEmail.text.toString().trim()
         val password = edtPassword.text.toString().trim()
         val confirmPassword = edtConfirmPassword.text.toString().trim()
 
         //validation
         //check if the user left fields empty
 
-        if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+        if(email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
             Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -82,51 +83,26 @@ class Register : AppCompatActivity() {
             return
         }
 
-        //database operation
+        if (password.length < 6){
+            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        lifecycleScope.launch{
-            //check if user exists in the database
-            val existingUser = db.userDao().getUserByUsername(username)
+        //firebase registration
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
 
-            if(existingUser != null){
-                //if user exists, show them a message
-                runOnUiThread {
-                    Toast.makeText(this@Register, "Username already exists", Toast.LENGTH_SHORT).show()
-
-                }
-            }else{
-                //if the user does not exist, create a new user object
-                val newUser = User(
-                    username = username,
-                    password = password
-                )
-
-                //insert new user into the database
-                db.userDao().insertUser(newUser)
-
-                //show success message and move to the login screen
-                runOnUiThread {
-                    Toast.makeText(this@Register,"Registration successful", Toast.LENGTH_SHORT).show()
+                if (task.isSuccessful){
+                    Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show()
 
                     clearFields()
+
+                    //go back to log in screen
                     openLoginScreen()
+                }else{
+                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-
-    }
-
-    private fun addDefaultUser(){
-        lifecycleScope.launch {
-            //check if admin already exists
-            val existingUser = db.userDao().getUserByUsername("admin")
-            if(existingUser == null){
-                //if not, insert the default admin user
-                db.userDao().insertUser(
-                    User(username = "admin", password = "1234")
-                )
-            }
-        }
     }
 
     private fun openLoginScreen(){
@@ -137,7 +113,7 @@ class Register : AppCompatActivity() {
     }
 
     private fun clearFields(){
-        edtUsername.text.clear()
+        edtEmail.text.clear()
         edtPassword.text.clear()
         edtConfirmPassword.text.clear()
     }
