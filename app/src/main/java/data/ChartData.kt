@@ -2,5 +2,6 @@ package data
 
 data class ChartData(
     val category: String = "",
-    val value: Float = 0f
+    val value: Float = 0f,
+    val date: String = ""
 )

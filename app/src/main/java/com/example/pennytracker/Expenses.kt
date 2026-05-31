@@ -118,7 +118,8 @@ class Expenses : AppCompatActivity() {
 
             val chartData = ChartData(
                 category = category,
-                value = amount.toFloat()
+                value = amount.toFloat(),
+                date = date
             )
 
             dbRef.push().setValue(chartData)
