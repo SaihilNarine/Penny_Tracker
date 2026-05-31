@@ -37,7 +37,9 @@ class Expenses : AppCompatActivity() {
     private lateinit var btnSaveGoals: Button
 
     private lateinit var db: AppDatabase
-    private val firebaseRef = FirebaseDatabase.getInstance().getReference("chartData")
+
+    //firebase database
+    private val dbRef = FirebaseDatabase.getInstance().getReference("chartData")
 
     private var selectedPhotoUri: String? = null
 
@@ -119,7 +121,7 @@ class Expenses : AppCompatActivity() {
                 value = amount.toFloat()
             )
 
-            firebaseRef.push().setValue(chartData)
+            dbRef.push().setValue(chartData)
 
             runOnUiThread {
                 Toast.makeText(this@Expenses, "Expense saved successfully", Toast.LENGTH_SHORT).show()

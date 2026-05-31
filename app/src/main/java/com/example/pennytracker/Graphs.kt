@@ -25,8 +25,11 @@ class Graphs : AppCompatActivity() {
 
         //pieChart = findViewById(R.id.pieChart)
         barChart = findViewById(R.id.barChart)
+        pieChart = findViewById(R.id.pieChart)
+
         pieChart.setNoDataText("Loading data...")
         barChart.setNoDataText("Loading data...")
+
         loadData()
     }
 
