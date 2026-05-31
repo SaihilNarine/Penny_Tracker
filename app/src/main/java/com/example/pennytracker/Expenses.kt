@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 //imports for the images
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.database.FirebaseDatabase
+import data.ChartData
 
 class Expenses : AppCompatActivity() {
 
@@ -35,6 +37,7 @@ class Expenses : AppCompatActivity() {
     private lateinit var btnSaveGoals: Button
 
     private lateinit var db: AppDatabase
+    private val firebaseRef = FirebaseDatabase.getInstance().getReference("chartData")
 
     private var selectedPhotoUri: String? = null
 
@@ -110,6 +113,13 @@ class Expenses : AppCompatActivity() {
 
         lifecycleScope.launch{
             db.expenseDao().insertExpense(expense)
+
+            val chartData = ChartData(
+                category = category,
+                value = amount.toFloat()
+            )
+
+            firebaseRef.push().setValue(chartData)
 
             runOnUiThread {
                 Toast.makeText(this@Expenses, "Expense saved successfully", Toast.LENGTH_SHORT).show()

@@ -1,60 +1,147 @@
 package com.example.pennytracker
 
-import data.database.AppDatabase
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.pennytracker.views.BarChartView
-import com.example.pennytracker.views.LineChartView
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.launch
+import data.ChartData
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.database.*
 
 class Graphs : AppCompatActivity() {
 
-    //Global VAR
-    private lateinit var bottomNav: BottomNavigationView
-    private lateinit var db: AppDatabase
+    private lateinit var pieChart: PieChart
+    private lateinit var barChart: BarChart
+
+    private val dbRef =
+        FirebaseDatabase.getInstance()
+            .getReference("chartData")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graphs)
 
-        val barChart = findViewById<BarChartView>(R.id.barChart)
-        val lineChart = findViewById<LineChartView>(R.id.lineChart)
+        //pieChart = findViewById(R.id.pieChart)
+        barChart = findViewById(R.id.barChart)
+        pieChart.setNoDataText("Loading data...")
+        barChart.setNoDataText("Loading data...")
+        loadData()
+    }
 
-        bottomNav = findViewById(R.id.bottomNav)
+    private fun loadData() {
 
-        db = AppDatabase.getDatabase(this)
+        dbRef.addValueEventListener(
+            object : ValueEventListener {
 
-        lifecycleScope.launch {
+                override fun onDataChange(
+                    snapshot: DataSnapshot
+                ) {
 
-            val categories = db.expenseDao().getCategoryTotals()
-            val barData = categories.map { it.total }
+                    val pieEntries =
+                        ArrayList<PieEntry>()
 
-            barChart.data = barData
-            barChart.invalidate()
+                    val barEntries =
+                        ArrayList<BarEntry>()
 
-            val expenses = db.expenseDao().getAllExpenses()
-            val lineData = expenses.map { it.amount.toFloat() }
-            lineChart.data = lineData
-            lineChart.invalidate()
-        }
+                    val labels =
+                        ArrayList<String>()
 
-        bottomNav.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_home -> true
-                R.id.nav_expenses -> {
-                    startActivity(Intent(this, Expenses::class.java))
-                    true
+                    var index = 0f
+
+                    for (child in snapshot.children) {
+
+                        val item =
+                            child.getValue(
+                                ChartData::class.java
+                            )
+
+                        if (item != null) {
+
+                            pieEntries.add(
+                                PieEntry(
+                                    item.value,
+                                    item.category
+                                )
+                            )
+
+                            barEntries.add(
+                                BarEntry(
+                                    index,
+                                    item.value
+                                )
+                            )
+
+                            labels.add(
+                                item.category
+                            )
+
+                            index++
+                        }
+                    }
+
+                    setupPieChart(pieEntries)
+                    setupBarChart(
+                        barEntries,
+                        labels
+                    )
                 }
-                R.id.nav_graphs -> true
-                R.id.nav_budget -> {
-                    startActivity(Intent(this, Budget::class.java))
-                    true
+
+                override fun onCancelled(
+                    error: DatabaseError
+                ) {
                 }
-                else -> false
             }
-        }
+        )
+    }
+
+    private fun setupPieChart(entries: List<PieEntry>) {
+
+        val dataSet = PieDataSet(entries, "Expenses")
+
+        dataSet.colors = listOf(
+            Color.RED,
+            Color.BLUE,
+            Color.GREEN,
+            Color.YELLOW,
+            Color.MAGENTA,
+            Color.CYAN
+        )
+
+        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextSize = 12f
+
+        val data = PieData(dataSet)
+
+        pieChart.data = data
+        pieChart.description.isEnabled = false
+        pieChart.setUsePercentValues(true)
+        pieChart.centerText = "Expenses"
+        pieChart.animateY(1000)
+
+        pieChart.invalidate()
+    }
+
+    private fun setupBarChart(entries: List<BarEntry>, labels: List<String>) {
+
+        val dataSet = BarDataSet(entries, "Expenses")
+        dataSet.color = Color.BLUE
+        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextSize = 12f
+
+        val data = BarData(dataSet)
+
+        barChart.data = data
+
+        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        barChart.xAxis.granularity = 1f
+        barChart.xAxis.setDrawGridLines(false)
+
+        barChart.axisRight.isEnabled = false
+        barChart.description.isEnabled = false
+
+        barChart.animateY(1000)
+        barChart.invalidate()
     }
 }
