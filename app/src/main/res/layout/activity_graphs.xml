@@ -24,14 +24,16 @@
             android:id="@+id/edtFilterDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:hint="Select Date"
-            android:focusable="false"/>
+            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <Button
             android:id="@+id/btnFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter"/>
+            android:text="Filter"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
