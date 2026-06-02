@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "616487784184",
+    "firebase_url": "https://pennytrackerp3-default-rtdb.firebaseio.com",
+    "project_id": "pennytrackerp3",
+    "storage_bucket": "pennytrackerp3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616487784184:android:4c7e1042801d387d7bb50d",
+        "android_client_info": {
+          "package_name": "com.example.pennytracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxi5t2r3UjjPDtN7yGeY0Nup7zEdNIwdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
