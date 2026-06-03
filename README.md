@@ -49,4 +49,4 @@ Penny Pilot is designed to be an effective, user-friendly tool for personal fina
 
 ## Links
 * Firebase: https://console.firebase.google.com/project/pennytrackerp3/overview?fb_gclid=Cj0KCQjw_vnQBhCxARIsADcZyxIdUxHQ3GgpNyZ2qsawxxVcT5vyLB2DHntkpnCS6pXIT73qSB1vHEYaAvN5EALw_wcB&fb_utm_campaign=Cloud-SS-DR-Firebase-FY26-global-gsem-1713590&fb_utm_content=text-ad&fb_utm_medium=cpc&fb_utm_source=google&fb_utm_term=KW_firebase%20com.
-* Youtube Link: 
+* Youtube Link: https://youtu.be/mHMEWkpeKnc.
